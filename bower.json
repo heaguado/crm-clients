@@ -1,0 +1,18 @@
+{
+  "name": "crm-clients",
+  "version": "0.0.0",
+  "description": "Customer Relationship Manager",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
