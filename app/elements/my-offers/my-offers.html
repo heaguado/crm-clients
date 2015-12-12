@@ -1,0 +1,169 @@
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="my-offers">
+
+  <style>
+    :host {
+      @apply(--layout-fit);
+      @apply(--layout-vertical);
+      @apply(--paper-font-common-base);
+      display: block;
+      font-family: sans-serif;
+    }
+    #itemsList,
+    #selectedItemsList {
+      @apply(--layout-flex);
+    }
+    .item {
+      @apply(--layout-horizontal);
+      cursor: pointer;
+      padding: 16px 22px;
+      border-bottom: 1px solid #DDD;
+    }
+    .item:hover {
+      background-color: var(--google-grey-100);
+    }
+    .item:focus,
+    .item.selected:focus {
+      outline: 0;
+      /*   background-color: #ddd;*/
+    }
+    .item.selected .star {
+      color: var(--paper-blue-600);
+    }
+    .item.selected {
+      background-color: var(--google-grey-100);
+    }
+    .avatar {
+      height: 40px;
+      width: 40px;
+      border-radius: 20px;
+      box-sizing: border-box;
+      background-color: #DDD;
+    }
+    .pad {
+      @apply(--layout-flex);
+      @apply(--layout-vertical);
+      padding: 0 16px;
+    }
+    .primary {
+      font-size: 16px;
+    }
+    .secondary {
+      font-size: 14px;
+    }
+    .dim {
+      color: gray;
+    }
+    .star {
+      width: 24px;
+      height: 24px;
+    }
+    #starredView {
+      width: 200px;
+      border-left: 1px solid #ddd;
+    }
+    paper-item {
+      white-space: nowrap;
+      cursor: pointer;
+      position: relative;
+    }
+    paper-item:focus {
+      outline: 0;
+      background-color: #ddd;
+    }
+    paper-item:hover::after {
+      content: "－";
+      width: 16px;
+      height: 16px;
+      display: block;
+      border-radius: 50% 50%;
+      background-color: var(--google-red-300);
+      margin-left: 10px;
+      line-height: 16px;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      position: absolute;
+      right: 15px;
+      top: calc(50% - 8px);
+    }
+    paper-button.custom {
+      --paper-button-ink-color: var(--paper-pink-a200);
+      /* These could also be individually defined for each of the
+        specific css classes, but we'll just do it once as an example */
+      --paper-button-flat-keyboard-focus: {
+        background-color: var(--paper-pink-a200);
+        color: white !important;
+      };
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+      };
+    }
+    paper-button.custom:hover {
+      background-color: var(--paper-indigo-100);
+    }
+    paper-button.indigo {
+      background-color: var(--paper-indigo-500);
+      color: white;
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+      };
+    }
+  </style>
+
+  <template>
+    <iron-ajax url="{{url}}" handle-as="json" last-response="{{data}}" auto></iron-ajax>
+
+    <div class="flex horizontal layout">
+      <!-- Main List for the items -->
+      <iron-list id="itemsList" items="[[data]]" selected-items="{{selectedItems}}" selection-enabled multi-selection>
+        <template>
+          <div>
+            <div class="item">
+              <div class="pad">
+                <div class="primary">
+                  Oferta: <span>[[item.offer]]</span><br>
+                  Descripción: <span>[[item.description]]</span><br>
+                  Fecha: <span>[[item.date]]</span><br>
+                  Precio: <span>[[item.price]]</span><br>
+                  Ciudad: <span>[[item.city]]</span><br>
+                  Ubicación: <span>[[item.location]]</span><br><br>
+                  <paper-button raised class="custom indigo"><iron-icon icon="check"></iron-icon>Añadir</paper-button>
+                </div>
+
+              </div>
+
+            </div>
+            <div class="border"></div>
+          </div>
+        </template>
+      </iron-list>
+
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-offers',
+
+      properties: {
+        selectedItems: {
+          type: Object
+        },
+        url: {
+          type: String,
+          value: 'http://localhost:3000/offers',
+          notify: true
+        }
+      }
+    });
+  </script>
+</dom-module>

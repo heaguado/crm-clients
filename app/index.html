@@ -1,0 +1,212 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Customer Relationship Manager de Clientes" />
+  <title>Customer Relationship Manager de Clientes</title>
+  <!-- Place favicon.ico in the `app/` directory -->
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#2E3AA1">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PSK">
+  <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Customer Relationship Manager de Clientes">
+
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
+
+  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <!-- endreplace-->
+
+  <!-- For shared styles, shared-styles.html import in elements.html -->
+  <style is="custom-style" include="shared-styles"></style>
+  <style>
+    :host {
+      display: block;
+    }
+    paper-button.custom {
+      --paper-button-ink-color: var(--paper-pink-a200);
+      /* These could also be individually defined for each of the
+        specific css classes, but we'll just do it once as an example */
+      --paper-button-flat-keyboard-focus: {
+        background-color: var(--paper-pink-a200);
+        color: white !important;
+      };
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+      };
+    }
+    paper-button.custom:hover {
+      background-color: var(--paper-indigo-100);
+    }
+    paper-button.indigo {
+      background-color: var(--paper-indigo-500);
+      color: white;
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+      };
+    }
+  </style>
+</head>
+
+<body unresolved class="fullbleed layout vertical">
+  <span id="browser-sync-binding"></span>
+  <template is="dom-bind" id="app">
+
+    <paper-drawer-panel id="paperDrawerPanel">
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- Drawer Toolbar -->
+        <paper-toolbar id="drawerToolbar">
+          <span class="paper-font-title">Menu</span>
+        </paper-toolbar>
+
+        <!-- Drawer Content -->
+        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
+          <a data-route="home" href="/" on-click="onDataRouteClick">
+            <iron-icon icon="home"></iron-icon>
+            <span>Inicio</span>
+          </a>
+
+          <a data-route="client" href="/client" on-click="onDataRouteClick">
+            <iron-icon icon="account-circle"></iron-icon>
+            <span>Cliente</span>
+          </a>
+
+          <a data-route="offers" href="/offers" on-click="onDataRouteClick">
+            <iron-icon icon="thumb-up"></iron-icon>
+            <span>Ofertas</span>
+          </a>
+
+          <a data-route="places" href="/places" on-click="onDataRouteClick">
+            <iron-icon icon="room"></iron-icon>
+            <span>Lugares</span>
+          </a>
+
+          <a data-route="events" href="/events" on-click="onDataRouteClick">
+            <iron-icon icon="event"></iron-icon>
+            <span>Eventos</span>
+          </a>
+        </paper-menu>
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-scroll-header-panel main condenses keep-condensed-header>
+
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar" class="tall">
+
+          <!-- Application name -->
+          <div class="middle middle-container center horizontal layout">
+            <div class="app-name">Customer Relationship Manager de Clientes</div>
+          </div>
+
+        </paper-toolbar>
+
+        <!-- Main Content -->
+        <div class="content">
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+
+            <section data-route="home">
+              <paper-material elevation="1">
+                <my-greeting></my-greeting>
+              </paper-material>
+
+            </section>
+
+            <section data-route="client-login">
+              <paper-material elevation="1">
+                <h2 class="page-title"><span>Acceso cliente</span></h2>
+              </paper-material>
+              <paper-material elevation="1">
+                <client-login style="position:relative"></client-login>
+              </paper-material>
+            </section>
+
+            <section data-route="client-form">
+              <paper-material elevation="1">
+                <h2 class="page-title"><span>Alta de cliente</span></h2>
+              </paper-material>
+              <paper-material elevation="1">
+                <client-form style="position:relative"></client-form>
+              </paper-material>
+            </section>
+
+            <section data-route="my-client">
+              <paper-material elevation="1">
+                <h2 class="page-title"><span>Cliente</span></h2>
+              </paper-material>
+              <paper-material elevation="1">
+                <my-client style="position:relative"></my-client>
+              </paper-material>
+            </section>
+
+            <section data-route="offers">
+              <paper-material elevation="1">
+                <h2 class="page-title"><span>Ofertas</span></h2>
+              </paper-material>
+              <paper-material elevation="1">
+                <my-offers style="position:relative"></my-offers>
+              </paper-material>
+            </section>
+
+            <section data-route="places">
+              <paper-material elevation="1">
+                <h2 class="page-title"><span>Lugares</span></h2>
+              </paper-material>
+              <paper-material elevation="1">
+                <my-places style="position:relative"></my-places>
+              </paper-material>
+            </section>
+
+            <section data-route="events">
+              <paper-material elevation="1">
+                <h2 class="page-title"><span>Eventos</span></h2>
+              </paper-material>
+              <paper-material elevation="1">
+                <my-events style="position:relative"></my-events>
+              </paper-material>
+            </section>
+
+          </iron-pages>
+        </div>
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
+
+  </template>
+
+  <!-- build:js scripts/app.js -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild-->
+</body>
+
+</html>

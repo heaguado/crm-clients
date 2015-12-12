@@ -1,0 +1,63 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="client-login">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-button.custom {
+        --paper-button-ink-color: var(--paper-pink-a200);
+        /* These could also be individually defined for each of the
+          specific css classes, but we'll just do it once as an example */
+        --paper-button-flat-keyboard-focus: {
+          background-color: var(--paper-pink-a200);
+          color: white !important;
+        };
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+      paper-button.custom:hover {
+        background-color: var(--paper-indigo-100);
+      }
+      paper-button.indigo {
+        background-color: var(--paper-indigo-500);
+        color: white;
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+    </style>
+
+    <div class="primary">
+      <paper-input label="Usuario" required auto-validate error-message="campo obligatorio"></paper-input>
+      <paper-input label="Password" type="password" required auto-validate error-message="campo obligatorio"></paper-input><br><br>
+      <a href="/client/dgsdfg">
+        <paper-button id="btnLogin" raisedButton class="custom indigo">Login</paper-button>
+      </a>
+    </div>
+    <br><br>
+    <div class="primary">
+      <a href="/client/new">Si desea crear un usuario nuevo pulse el link</a>
+    </div>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'client-login'
+      });
+    })();
+
+  </script>
+
+</dom-module>
