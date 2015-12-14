@@ -11,6 +11,59 @@
           font-size: 24px!important;
         }
       }
+      :host {
+        display: block;
+      }
+      paper-button.custom {
+        --paper-button-ink-color: var(--paper-pink-a200);
+        /* These could also be individually defined for each of the
+          specific css classes, but we'll just do it once as an example */
+        --paper-button-flat-keyboard-focus: {
+          background-color: var(--paper-pink-a200);
+          color: white !important;
+        };
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+      paper-button.custom:hover {
+        background-color: var(--paper-indigo-100);
+      }
+      paper-button.indigo {
+        background-color: var(--paper-indigo-500);
+        color: white;
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+      #itemsList {
+        @apply(--layout-flex);
+      }
+      .item {
+        @apply(--layout-horizontal);
+        cursor: pointer;
+        padding: 16px 22px;
+        border-bottom: 1px solid #DDD;
+      }
+      .item:hover {
+        background-color: var(--google-grey-100);
+      }
+      .item:focus,
+      .item.selected:focus {
+        outline: 0;
+        /*   background-color: #ddd;*/
+      }
+      .item.selected .star {
+        color: var(--paper-blue-600);
+      }
+      .item.selected {
+        background-color: var(--google-grey-100);
+      }
+      .primary {
+        font-size: 16px;
+      }
     </style>
   </template>
 </dom-module>

@@ -7,7 +7,6 @@ var supertest = require('supertest');
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
 var config = require('../../../config/env');
-var args = require('../data/offers').args;
 var data = require('../data/offers.data.test').data;
 
 var db;
@@ -52,10 +51,10 @@ describe('UNIT TEST offers.routes', function() {
       });
   });
 
-  for (var arg in args) {
-    it('Get offer ' + arg, function (done) {
+  for (var key in data) {
+    it('Get offer ' + key, function (done) {
       server
-        .get('/offer/' + arg)
+        .get('/offer/' + key)
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -67,11 +66,11 @@ describe('UNIT TEST offers.routes', function() {
   }
 
 
-  for (var arg in args) {
-    it('Put offer ' + arg, function (done) {
+  for (var key in data) {
+    it('Put offer ' + key, function (done) {
       server
         .put('offer')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -82,11 +81,11 @@ describe('UNIT TEST offers.routes', function() {
     });
   }
 
-  for (var arg in args) {
-    it('Post offer ' + arg, function (done) {
+  for (var key in data) {
+    it('Post offer ' + key, function (done) {
       server
         .post('offer')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -97,11 +96,11 @@ describe('UNIT TEST offers.routes', function() {
     });
   }
 
-  for (var arg in args) {
-    it('Delete offer ' + arg, function (done) {
+  for (var key in data) {
+    it('Delete offer ' + key, function (done) {
       server
         .delete('offer')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;

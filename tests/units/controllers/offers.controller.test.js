@@ -48,7 +48,7 @@ describe('UNIT TEST offers.controller', function() {
   describe('mongo', function() {
 
     it('getOffers', function (done) {
-      offersController.mongo.getOffers(app.db, function (err, data) {
+      offersController.getOffers(app.db, function (err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -57,7 +57,7 @@ describe('UNIT TEST offers.controller', function() {
 
     for(key in data){
       it('getOffer data '+key, function (done) {
-        offersController.mongo.getOffer(app.db, data[key], function (err, data) {
+        offersController.getOffer(app.db, data[key], function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -70,7 +70,7 @@ describe('UNIT TEST offers.controller', function() {
         offer = {
           id : data[key]
         };
-        offersController.mongo.postOffer(app.db, offer, function (err, data) {
+        offersController.postOffer(app.db, offer, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -83,7 +83,7 @@ describe('UNIT TEST offers.controller', function() {
         offer = {
           id : data[key]
         };
-        offersController.mongo.putOffer(app.db, offer, function (err, data) {
+        offersController.putOffer(app.db, offer, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -96,7 +96,7 @@ describe('UNIT TEST offers.controller', function() {
         offer = {
           id : data[key]
         };
-        offersController.mongo.deleteOffer(app.db, offer, function (err, data) {
+        offersController.deleteOffer(app.db, offer, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();

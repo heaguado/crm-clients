@@ -48,7 +48,7 @@ describe('UNIT TEST places.controller', function() {
   describe('mongo', function() {
 
     it('getPlaces', function (done) {
-      placesController.mongo.getPlaces(app.db, function (err, data) {
+      placesController.getPlaces(app.db, function (err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -57,7 +57,7 @@ describe('UNIT TEST places.controller', function() {
 
     for(key in data){
       it('getPlace data '+key, function (done) {
-        placesController.mongo.getPlace(app.db, data[key], function (err, data) {
+        placesController.getPlace(app.db, data[key], function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -70,7 +70,7 @@ describe('UNIT TEST places.controller', function() {
         place = {
           id : data[key]
         };
-        placesController.mongo.postPlace(app.db, place, function (err, data) {
+        placesController.postPlace(app.db, place, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -83,7 +83,7 @@ describe('UNIT TEST places.controller', function() {
         place = {
           id : data[key]
         };
-        placesController.mongo.putPlace(app.db, place, function (err, data) {
+        placesController.putPlace(app.db, place, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -96,7 +96,7 @@ describe('UNIT TEST places.controller', function() {
         place = {
           id : data[key]
         };
-        placesController.mongo.deletePlace(app.db, place, function (err, data) {
+        placesController.deletePlace(app.db, place, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();

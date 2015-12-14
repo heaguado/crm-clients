@@ -9,5 +9,6 @@ module.exports = {
         hosts: process.env.MONGO_HOSTS || '',
         db: process.env.MONGO_DB || 'crmclients',
         options: {}
-    }
+    },
+    secretKey: 'figuetuffueñof'
 };

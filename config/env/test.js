@@ -11,5 +11,6 @@ module.exports = {
         hosts: process.env.MONGO_HOSTS || '127.0.0.1:27017',
         db: process.env.MONGO_DB || 'crmclients-test',
         options: {}
-    }
+    },
+    secretKey: 'figuetuffueñof'
 };

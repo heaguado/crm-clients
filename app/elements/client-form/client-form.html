@@ -5,46 +5,17 @@
 <dom-module id="client-form">
   <template>
     <style include="shared-styles"></style>
-    <style>
-      :host {
-        display: block;
-      }
-      paper-button.custom {
-        --paper-button-ink-color: var(--paper-pink-a200);
-        /* These could also be individually defined for each of the
-          specific css classes, but we'll just do it once as an example */
-        --paper-button-flat-keyboard-focus: {
-          background-color: var(--paper-pink-a200);
-          color: white !important;
-        };
-        --paper-button-raised-keyboard-focus: {
-          background-color: var(--paper-pink-a200) !important;
-          color: white !important;
-        };
-      }
-      paper-button.custom:hover {
-        background-color: var(--paper-indigo-100);
-      }
-      paper-button.indigo {
-        background-color: var(--paper-indigo-500);
-        color: white;
-        --paper-button-raised-keyboard-focus: {
-          background-color: var(--paper-pink-a200) !important;
-          color: white !important;
-        };
-      }
-    </style>
 
     <div class="primary">
-      <paper-input label="Usuario" required auto-validate error-message="campo obligatorio"></paper-input>
-      <paper-input label="Password" type="password" required auto-validate error-message="campo obligatorio"></paper-input>
-      <paper-input label="Nombre" required auto-validate error-message="campo obligatorio"></paper-input>
-      <paper-input label="Apellidos" required auto-validate error-message="campo obligatorio"></paper-input>
-      <paper-input label="Edad" required auto-validate error-message="campo obligatorio"></paper-input>
-      <paper-input label="Email" required auto-validate error-message="campo obligatorio"></paper-input>
-      <paper-input label="Móvil" required auto-validate error-message="campo obligatorio"></paper-input><br><br>
-      <a href="/client/dgsdfg">
-        <paper-button id="btnRegister" raisedButton class="custom indigo">Registrar</paper-button>
+      <paper-input id='userReg' label='Usuario' required auto-validate error-message='campo obligatorio' on-blur='idChanged'></paper-input>
+      <paper-input id='passwordReg' label='Password' type='password' required auto-validate error-message='campo obligatorio'></paper-input>
+      <paper-input label='Nombre' required auto-validate error-message='campo obligatorio'></paper-input>
+      <paper-input label='Apellidos' required auto-validate error-message='campo obligatorio'></paper-input>
+      <paper-input label='Edad' required auto-validate error-message='campo obligatorio'></paper-input>
+      <paper-input label='Email' required auto-validate error-message='campo obligatorio'></paper-input>
+      <paper-input label='Móvil' required auto-validate error-message='campo obligatorio'></paper-input><br><br>
+      <a id='registerLink'>
+        <paper-button id='btnRegister' raisedButton class='custom indigo' onclick='register()'>Registrar</paper-button>
       </a>
     </div>
 
@@ -55,10 +26,35 @@
       'use strict';
 
       Polymer({
-        is: 'client-form'
+        is: 'client-form',
+        properties: {
+          userId: {
+            type:String,
+            notify: true
+          }
+        },
+        idChanged: function(e){
+          this.userId = e.target.value;
+        }
       });
     })();
 
+    function register() {
+      var element = document.getElementById('registerLink');
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+        if (request.readyState === 4) {
+          if (request.status === 200) {
+            document.body.className = 'ok';
+          } else {
+            document.body.className = 'error';
+          }
+        }
+      };
+      request.open('GET', hostUrl+'/client/'+document.getElementById('userReg').value , true);
+      request.send(null);
+      element.href = '/client/'+document.getElementById('userReg').value;
+    }
   </script>
 
 </dom-module>

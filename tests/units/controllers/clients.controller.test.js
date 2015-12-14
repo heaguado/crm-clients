@@ -48,7 +48,7 @@ describe('UNIT TEST clients.controller', function() {
   describe('mongo', function() {
 
     it('getClients', function (done) {
-      clientsController.mongo.getClients(app.db, function (err, data) {
+      clientsController.getClients(app.db, function (err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -57,7 +57,7 @@ describe('UNIT TEST clients.controller', function() {
 
     for(key in data){
       it('getClient data '+key, function (done) {
-        clientsController.mongo.getClient(app.db, data[key], function (err, data) {
+        clientsController.getClient(app.db, data[key], function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -70,7 +70,7 @@ describe('UNIT TEST clients.controller', function() {
         client = {
           id : data[key]
         };
-        clientsController.mongo.postClient(app.db, client, function (err, data) {
+        clientsController.postClient(app.db, client, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -83,7 +83,7 @@ describe('UNIT TEST clients.controller', function() {
         client = {
           id : data[key]
         };
-        clientsController.mongo.putClient(app.db, client, function (err, data) {
+        clientsController.putClient(app.db, client, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -96,7 +96,7 @@ describe('UNIT TEST clients.controller', function() {
         client = {
           id : data[key]
         };
-        clientsController.mongo.deleteClient(app.db, client, function (err, data) {
+        clientsController.deleteClient(app.db, client, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();

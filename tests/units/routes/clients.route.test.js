@@ -7,7 +7,6 @@ var supertest = require('supertest');
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
 var config = require('../../../config/env');
-var args = require('../data/clients').args;
 var data = require('../data/clients.data.test').data;
 
 var db;
@@ -52,10 +51,10 @@ describe('UNIT TEST clients.routes', function() {
       });
   });
 
-  for (var arg in args) {
-    it('Get client ' + arg, function (done) {
+  for (var key in data) {
+    it('Get client ' + key, function (done) {
       server
-        .get('/client/' + arg)
+        .get('/client/' + data[key]._id)
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -67,11 +66,11 @@ describe('UNIT TEST clients.routes', function() {
   }
 
 
-  for (var arg in args) {
-    it('Put client ' + arg, function (done) {
+  for (var key in data) {
+    it('Put client ' + key, function (done) {
       server
         .put('client')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -82,11 +81,11 @@ describe('UNIT TEST clients.routes', function() {
     });
   }
 
-  for (var arg in args) {
-    it('Post client ' + arg, function (done) {
+  for (var key in data) {
+    it('Post client ' + key, function (done) {
       server
         .post('client')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -97,11 +96,11 @@ describe('UNIT TEST clients.routes', function() {
     });
   }
 
-  for (var arg in args) {
-    it('Delete client ' + arg, function (done) {
+  for (var key in data) {
+    it('Delete client ' + key, function (done) {
       server
         .delete('client')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;

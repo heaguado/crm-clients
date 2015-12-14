@@ -7,7 +7,6 @@ var supertest = require('supertest');
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
 var config = require('../../../config/env');
-var args = require('../data/places').args;
 var data = require('../data/places.data.test').data;
 
 var db;
@@ -52,10 +51,10 @@ describe('UNIT TEST places.routes', function() {
       });
   });
 
-  for (var arg in args) {
-    it('Get place ' + arg, function (done) {
+  for (var key in data) {
+    it('Get place ' + key, function (done) {
       server
-        .get('/place/' + arg)
+        .get('/place/' + key)
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -67,11 +66,11 @@ describe('UNIT TEST places.routes', function() {
   }
 
 
-  for (var arg in args) {
-    it('Put place ' + arg, function (done) {
+  for (var key in data) {
+    it('Put place ' + key, function (done) {
       server
         .put('place')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -82,11 +81,11 @@ describe('UNIT TEST places.routes', function() {
     });
   }
 
-  for (var arg in args) {
-    it('Post place ' + arg, function (done) {
+  for (var key in data) {
+    it('Post place ' + key, function (done) {
       server
         .post('place')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -97,11 +96,11 @@ describe('UNIT TEST places.routes', function() {
     });
   }
 
-  for (var arg in args) {
-    it('Delete place ' + arg, function (done) {
+  for (var key in data) {
+    it('Delete place ' + key, function (done) {
       server
         .delete('place')
-        .send(args[arg])
+        .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;

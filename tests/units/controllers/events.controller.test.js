@@ -48,7 +48,7 @@ describe('UNIT TEST events.controller', function() {
   describe('mongo', function() {
 
     it('getEvents', function (done) {
-      eventsController.mongo.getEvents(app.db, function (err, data) {
+      eventsController.getEvents(app.db, function (err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -57,7 +57,7 @@ describe('UNIT TEST events.controller', function() {
 
     for(key in data){
       it('getEvent data '+key, function (done) {
-        eventsController.mongo.getEvent(app.db, data[key], function (err, data) {
+        eventsController.getEvent(app.db, data[key], function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -70,7 +70,7 @@ describe('UNIT TEST events.controller', function() {
         event = {
           id : data[key]
         };
-        eventsController.mongo.postEvent(app.db, event, function (err, data) {
+        eventsController.postEvent(app.db, event, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -83,7 +83,7 @@ describe('UNIT TEST events.controller', function() {
         event = {
           id : data[key]
         };
-        eventsController.mongo.putEvent(app.db, event, function (err, data) {
+        eventsController.putEvent(app.db, event, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -96,7 +96,7 @@ describe('UNIT TEST events.controller', function() {
         event = {
           id : data[key]
         };
-        eventsController.mongo.deleteEvent(app.db, event, function (err, data) {
+        eventsController.deleteEvent(app.db, event, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
