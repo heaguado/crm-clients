@@ -9,7 +9,6 @@ var mongo = require('../../../lib/modules/mongo');
 var config = require('../../../config/env');
 var data = require('../data/clients.data.test').data;
 
-var db;
 var host    = 'http://localhost:8100';
 var server = supertest(host);
 var collection = 'CLIENTS';
@@ -39,17 +38,35 @@ describe('UNIT TEST clients.routes', function() {
     done();
   });
 
-  it('Get clients', function (done) {
-    server
-      .get('/clients')
-      .expect("Content-type", /json/)
-      .end(function (err, res) {
-        expect(err).to.be.null;
-        expect(res).to.be.string;
-        assert.equal(res.status, 200);
-        done();
-      });
-  });
+  for (var key in data) {
+    it('Put client ' + key, function (done) {
+      server
+        .put('/client')
+        .send(data[key])
+        .expect("Content-type", /json/)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.be.string;
+          assert.equal(res.status, 200);
+          done();
+        });
+    });
+  }
+
+  for (var key in data) {
+    it('Post client ' + key, function (done) {
+      server
+        .post('/client')
+        .send(data[key])
+        .expect("Content-type", /json/)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.be.string;
+          assert.equal(res.status, 200);
+          done();
+        });
+    });
+  }
 
   for (var key in data) {
     it('Get client ' + key, function (done) {
@@ -65,41 +82,22 @@ describe('UNIT TEST clients.routes', function() {
     });
   }
 
-
-  for (var key in data) {
-    it('Put client ' + key, function (done) {
-      server
-        .put('client')
-        .send(data[key])
-        .expect("Content-type", /json/)
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          expect(res).to.be.string;
-          assert.equal(res.status, 200);
-          done();
-        });
-    });
-  }
-
-  for (var key in data) {
-    it('Post client ' + key, function (done) {
-      server
-        .post('client')
-        .send(data[key])
-        .expect("Content-type", /json/)
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          expect(res).to.be.string;
-          assert.equal(res.status, 200);
-          done();
-        });
-    });
-  }
+  it('Get clients', function (done) {
+    server
+      .get('/clients')
+      .expect("Content-type", /json/)
+      .end(function (err, res) {
+        expect(err).to.be.null;
+        expect(res).to.be.string;
+        assert.equal(res.status, 200);
+        done();
+      });
+  });
 
   for (var key in data) {
     it('Delete client ' + key, function (done) {
       server
-        .delete('client')
+        .delete('/client')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {

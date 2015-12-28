@@ -21,7 +21,7 @@ describe('UNIT TEST offers.controller', function() {
   before(function(done) {
     app.start(config.server.port);
     offersController = require("../../../lib/controllers/offers.controller");
-    mongo.connect(config, function (err, db) {
+    mongo.connect(config, function(err, db) {
       if (err) {
         console.log('ERROR initializing MongoDB: ' + err);
       } else {
@@ -39,7 +39,7 @@ describe('UNIT TEST offers.controller', function() {
     done();
   });
 
-  it('offersController must exists', function () {
+  it('offersController must exists', function() {
     var result = offersController;
     expect(result).to.be.an('object');
     expect(result).to.include.keys(['getOffers','getOffer','postOffer','putOffer','deleteOffer']);
@@ -47,8 +47,8 @@ describe('UNIT TEST offers.controller', function() {
 
   describe('mongo', function() {
 
-    it('getOffers', function (done) {
-      offersController.getOffers(app.db, function (err, data) {
+    it('getOffers', function(done) {
+      offersController.getOffers(function(err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -56,8 +56,8 @@ describe('UNIT TEST offers.controller', function() {
     });
 
     for(key in data){
-      it('getOffer data '+key, function (done) {
-        offersController.getOffer(app.db, data[key], function (err, data) {
+      it('getOffer data '+key, function(done) {
+        offersController.getOffer(data[key], function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -66,11 +66,11 @@ describe('UNIT TEST offers.controller', function() {
     }
 
     for(key in data){
-      it('postOffer data '+key, function (done) {
+      it('postOffer data '+key, function(done) {
         offer = {
           id : data[key]
         };
-        offersController.postOffer(app.db, offer, function (err, data) {
+        offersController.postOffer(offer, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -79,11 +79,11 @@ describe('UNIT TEST offers.controller', function() {
     }
 
     for(key in data){
-      it('putOffer data '+key, function (done) {
+      it('putOffer data '+key, function(done) {
         offer = {
           id : data[key]
         };
-        offersController.putOffer(app.db, offer, function (err, data) {
+        offersController.putOffer(offer, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -92,11 +92,11 @@ describe('UNIT TEST offers.controller', function() {
     }
 
     for(key in data){
-      it('deleteOffer data '+key, function (done) {
+      it('deleteOffer data '+key, function(done) {
         offer = {
           id : data[key]
         };
-        offersController.deleteOffer(app.db, offer, function (err, data) {
+        offersController.deleteOffer(offer, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();

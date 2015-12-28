@@ -39,6 +39,36 @@ describe('UNIT TEST places.routes', function() {
     done();
   });
 
+  for (var key in data) {
+    it('Put place ' + key, function (done) {
+      server
+        .put('/place')
+        .send(data[key])
+        .expect("Content-type", /json/)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.be.string;
+          assert.equal(res.status, 200);
+          done();
+        });
+    });
+  }
+
+  for (var key in data) {
+    it('Post place ' + key, function (done) {
+      server
+        .post('/place')
+        .send(data[key])
+        .expect("Content-type", /json/)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.be.string;
+          assert.equal(res.status, 200);
+          done();
+        });
+    });
+  }
+
   it('Get places', function (done) {
     server
       .get('/places')
@@ -54,38 +84,7 @@ describe('UNIT TEST places.routes', function() {
   for (var key in data) {
     it('Get place ' + key, function (done) {
       server
-        .get('/place/' + key)
-        .expect("Content-type", /json/)
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          expect(res).to.be.string;
-          assert.equal(res.status, 200);
-          done();
-        });
-    });
-  }
-
-
-  for (var key in data) {
-    it('Put place ' + key, function (done) {
-      server
-        .put('place')
-        .send(data[key])
-        .expect("Content-type", /json/)
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          expect(res).to.be.string;
-          assert.equal(res.status, 200);
-          done();
-        });
-    });
-  }
-
-  for (var key in data) {
-    it('Post place ' + key, function (done) {
-      server
-        .post('place')
-        .send(data[key])
+        .get('/place/' + data[key]._id)
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -99,7 +98,7 @@ describe('UNIT TEST places.routes', function() {
   for (var key in data) {
     it('Delete place ' + key, function (done) {
       server
-        .delete('place')
+        .delete('/place')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {

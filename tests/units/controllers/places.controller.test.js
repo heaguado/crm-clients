@@ -21,7 +21,7 @@ describe('UNIT TEST places.controller', function() {
   before(function(done) {
     app.start(config.server.port);
     placesController = require("../../../lib/controllers/places.controller");
-    mongo.connect(config, function (err, db) {
+    mongo.connect(config, function(err, db) {
       if (err) {
         console.log('ERROR initializing MongoDB: ' + err);
       } else {
@@ -39,7 +39,7 @@ describe('UNIT TEST places.controller', function() {
     done();
   });
 
-  it('placesController must exists', function () {
+  it('placesController must exists', function() {
     var result = placesController;
     expect(result).to.be.an('object');
     expect(result).to.include.keys(['getPlaces','getPlace','postPlace','putPlace','deletePlace']);
@@ -47,8 +47,8 @@ describe('UNIT TEST places.controller', function() {
 
   describe('mongo', function() {
 
-    it('getPlaces', function (done) {
-      placesController.getPlaces(app.db, function (err, data) {
+    it('getPlaces', function(done) {
+      placesController.getPlaces(function(err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -56,8 +56,8 @@ describe('UNIT TEST places.controller', function() {
     });
 
     for(key in data){
-      it('getPlace data '+key, function (done) {
-        placesController.getPlace(app.db, data[key], function (err, data) {
+      it('getPlace data '+key, function(done) {
+        placesController.getPlace(data[key], function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -66,11 +66,11 @@ describe('UNIT TEST places.controller', function() {
     }
 
     for(key in data){
-      it('postPlace data '+key, function (done) {
+      it('postPlace data '+key, function(done) {
         place = {
           id : data[key]
         };
-        placesController.postPlace(app.db, place, function (err, data) {
+        placesController.postPlace(place, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -79,11 +79,11 @@ describe('UNIT TEST places.controller', function() {
     }
 
     for(key in data){
-      it('putPlace data '+key, function (done) {
+      it('putPlace data '+key, function(done) {
         place = {
           id : data[key]
         };
-        placesController.putPlace(app.db, place, function (err, data) {
+        placesController.putPlace(place, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -92,11 +92,11 @@ describe('UNIT TEST places.controller', function() {
     }
 
     for(key in data){
-      it('deletePlace data '+key, function (done) {
+      it('deletePlace data '+key, function(done) {
         place = {
           id : data[key]
         };
-        placesController.deletePlace(app.db, place, function (err, data) {
+        placesController.deletePlace(place, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();

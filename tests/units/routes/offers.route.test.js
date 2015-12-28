@@ -39,6 +39,36 @@ describe('UNIT TEST offers.routes', function() {
     done();
   });
 
+  for (var key in data) {
+    it('Put offer ' + key, function (done) {
+      server
+        .put('/offer')
+        .send(data[key])
+        .expect("Content-type", /json/)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.be.string;
+          assert.equal(res.status, 200);
+          done();
+        });
+    });
+  }
+
+  for (var key in data) {
+    it('Post offer ' + key, function (done) {
+      server
+        .post('/offer')
+        .send(data[key])
+        .expect("Content-type", /json/)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.be.string;
+          assert.equal(res.status, 200);
+          done();
+        });
+    });
+  }
+
   it('Get offers', function (done) {
     server
       .get('/offers')
@@ -54,38 +84,7 @@ describe('UNIT TEST offers.routes', function() {
   for (var key in data) {
     it('Get offer ' + key, function (done) {
       server
-        .get('/offer/' + key)
-        .expect("Content-type", /json/)
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          expect(res).to.be.string;
-          assert.equal(res.status, 200);
-          done();
-        });
-    });
-  }
-
-
-  for (var key in data) {
-    it('Put offer ' + key, function (done) {
-      server
-        .put('offer')
-        .send(data[key])
-        .expect("Content-type", /json/)
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          expect(res).to.be.string;
-          assert.equal(res.status, 200);
-          done();
-        });
-    });
-  }
-
-  for (var key in data) {
-    it('Post offer ' + key, function (done) {
-      server
-        .post('offer')
-        .send(data[key])
+        .get('/offer/' + data[key]._id)
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -99,7 +98,7 @@ describe('UNIT TEST offers.routes', function() {
   for (var key in data) {
     it('Delete offer ' + key, function (done) {
       server
-        .delete('offer')
+        .delete('/offer')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {

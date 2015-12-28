@@ -9,7 +9,6 @@ var config = require('../../../config/env');
 var data = require('../data/clients.data.test').data;
 
 var clientsController;
-var db;
 var key;
 var client;
 var collection = 'CLIENTS';
@@ -39,7 +38,7 @@ describe('UNIT TEST clients.controller', function() {
     done();
   });
 
-  it('clientsController must exists', function () {
+  it('clientsController must exists', function() {
     var result = clientsController;
     expect(result).to.be.an('object');
     expect(result).to.include.keys(['getClients','getClient','postClient','putClient','deleteClient']);
@@ -47,8 +46,8 @@ describe('UNIT TEST clients.controller', function() {
 
   describe('mongo', function() {
 
-    it('getClients', function (done) {
-      clientsController.getClients(app.db, function (err, data) {
+    it('getClients', function(done) {
+      clientsController.getClients(function(err,data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -56,8 +55,8 @@ describe('UNIT TEST clients.controller', function() {
     });
 
     for(key in data){
-      it('getClient data '+key, function (done) {
-        clientsController.getClient(app.db, data[key], function (err, data) {
+      it('getClient data '+key, function(done) {
+        clientsController.getClient(data[key], function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -66,11 +65,11 @@ describe('UNIT TEST clients.controller', function() {
     }
 
     for(key in data){
-      it('postClient data '+key, function (done) {
+      it('postClient data '+key, function(done) {
         client = {
           id : data[key]
         };
-        clientsController.postClient(app.db, client, function (err, data) {
+        clientsController.postClient(client, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -79,11 +78,11 @@ describe('UNIT TEST clients.controller', function() {
     }
 
     for(key in data){
-      it('putClient data '+key, function (done) {
+      it('putClient data '+key, function(done) {
         client = {
           id : data[key]
         };
-        clientsController.putClient(app.db, client, function (err, data) {
+        clientsController.putClient(client, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -92,11 +91,11 @@ describe('UNIT TEST clients.controller', function() {
     }
 
     for(key in data){
-      it('deleteClient data '+key, function (done) {
+      it('deleteClient data '+key, function(done) {
         client = {
           id : data[key]
         };
-        clientsController.deleteClient(app.db, client, function (err, data) {
+        clientsController.deleteClient(client, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
