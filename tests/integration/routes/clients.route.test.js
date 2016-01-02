@@ -6,15 +6,14 @@ var supertest = require('supertest');
 
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
-var config = require('../../../config/env');
-var data = require('../data/places.data.test').data;
+var config = require('../../../config/env/index');
+var data = require('../../data/clients.data.test').data;
 
-var db;
 var host    = 'http://localhost:8100';
 var server = supertest(host);
-var collection = 'PLACES';
+var collection = 'CLIENTS';
 
-describe('UNIT TEST places.routes', function() {
+describe('INTEGRATION TEST clients.routes', function() {
 
   this.timeout(40000);
 
@@ -40,9 +39,9 @@ describe('UNIT TEST places.routes', function() {
   });
 
   for (var key in data) {
-    it('Put place ' + key, function (done) {
+    it('Put client ' + key, function (done) {
       server
-        .put('/place')
+        .put('/client')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
@@ -55,9 +54,9 @@ describe('UNIT TEST places.routes', function() {
   }
 
   for (var key in data) {
-    it('Post place ' + key, function (done) {
+    it('Post client ' + key, function (done) {
       server
-        .post('/place')
+        .post('/client')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
@@ -69,9 +68,23 @@ describe('UNIT TEST places.routes', function() {
     });
   }
 
-  it('Get places', function (done) {
+  for (var key in data) {
+    it('Get client ' + key, function (done) {
+      server
+        .get('/client/' + data[key]._id)
+        .expect("Content-type", /json/)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.be.string;
+          assert.equal(res.status, 200);
+          done();
+        });
+    });
+  }
+
+  it('Get clients', function (done) {
     server
-      .get('/places')
+      .get('/clients')
       .expect("Content-type", /json/)
       .end(function (err, res) {
         expect(err).to.be.null;
@@ -82,23 +95,9 @@ describe('UNIT TEST places.routes', function() {
   });
 
   for (var key in data) {
-    it('Get place ' + key, function (done) {
+    it('Delete client ' + key, function (done) {
       server
-        .get('/place/' + data[key]._id)
-        .expect("Content-type", /json/)
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          expect(res).to.be.string;
-          assert.equal(res.status, 200);
-          done();
-        });
-    });
-  }
-
-  for (var key in data) {
-    it('Delete place ' + key, function (done) {
-      server
-        .delete('/place')
+        .delete('/client')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {

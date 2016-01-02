@@ -1,33 +1,31 @@
 'use strict';
 
 var expect = require('chai').expect;
-var assert = require('chai').assert;
 
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
 var config = require('../../../config/env');
-var data = require('../data/clients.data.test').data;
+var data = require('../../data/events.data.test').data;
 
-var clientsModel;
-var db;
+var eventsController;
 var key;
-var client;
+var event;
 var collection = 'CLIENTS';
 
-describe('UNIT TEST clients.model', function() {
+describe('UNIT TEST events.controller', function() {
 
   this.timeout(40000);
 
   before(function(done) {
     app.start(config.server.port);
-    clientsModel = require("../../../lib/models/clients.model");
-    mongo.connect(config, function (err, db) {
-        if (err) {
-          console.log('ERROR initializing MongoDB: ' + err);
-        } else {
-          app.db = db;
-        }
-        done();
+    eventsController = require("../../../lib/controllers/events.controller");
+    mongo.connect(config, function(err, db) {
+      if (err) {
+        console.log('ERROR initializing MongoDB: ' + err);
+      } else {
+        app.db = db;
+      }
+      done();
     });
   });
 
@@ -39,16 +37,16 @@ describe('UNIT TEST clients.model', function() {
     done();
   });
 
-  it('clientsModel must exists', function () {
-    var result = clientsModel;
+  it('eventsController must exists', function() {
+    var result = eventsController;
     expect(result).to.be.an('object');
-    expect(result).to.include.keys(['mongo']);
+    expect(result).to.include.keys(['getEvents','getEvent','postEvent','putEvent','deleteEvent']);
   });
 
   describe('mongo', function() {
 
-    it('getClients', function (done) {
-      clientsModel.mongo.getClients(app.db, function (err, data) {
+    it('getEvents', function(done) {
+      eventsController.getEvents(function(err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -56,8 +54,8 @@ describe('UNIT TEST clients.model', function() {
     });
 
     for(key in data){
-      it('getClient data '+key, function (done) {
-        clientsModel.mongo.getClient(app.db, data[key], function (err, data) {
+      it('getEvent data '+key, function(done) {
+        eventsController.getEvent(data[key], function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -66,11 +64,11 @@ describe('UNIT TEST clients.model', function() {
     }
 
     for(key in data){
-      it('postClient data '+key, function (done) {
-        client = {
+      it('postEvent data '+key, function(done) {
+        event = {
           id : data[key]
         };
-        clientsModel.mongo.postClient(app.db, client, function (err, data) {
+        eventsController.postEvent(event, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -79,11 +77,11 @@ describe('UNIT TEST clients.model', function() {
     }
 
     for(key in data){
-      it('putClient data '+key, function (done) {
-        client = {
+      it('putEvent data '+key, function(done) {
+        event = {
           id : data[key]
         };
-        clientsModel.mongo.putClient(app.db, client, function (err, data) {
+        eventsController.putEvent(event, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -92,11 +90,11 @@ describe('UNIT TEST clients.model', function() {
     }
 
     for(key in data){
-      it('deleteClient data '+key, function (done) {
-        client = {
+      it('deleteEvent data '+key, function(done) {
+        event = {
           id : data[key]
         };
-        clientsModel.mongo.deleteClient(app.db, client, function (err, data) {
+        eventsController.deleteEvent(event, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();

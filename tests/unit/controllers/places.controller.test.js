@@ -1,27 +1,25 @@
 'use strict';
 
 var expect = require('chai').expect;
-var assert = require('chai').assert;
 
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
 var config = require('../../../config/env');
-var data = require('../data/events.data.test').data;
+var data = require('../../data/places.data.test').data;
 
-var eventsModel;
-var db;
+var placesController;
 var key;
-var client;
-var collection = 'EVENTS';
+var place;
+var collection = 'CLIENTS';
 
-describe('UNIT TEST events.model', function() {
+describe('UNIT TEST places.controller', function() {
 
   this.timeout(40000);
 
   before(function(done) {
     app.start(config.server.port);
-    eventsModel = require("../../../lib/models/events.model");
-    mongo.connect(config, function (err, db) {
+    placesController = require("../../../lib/controllers/places.controller");
+    mongo.connect(config, function(err, db) {
       if (err) {
         console.log('ERROR initializing MongoDB: ' + err);
       } else {
@@ -39,16 +37,16 @@ describe('UNIT TEST events.model', function() {
     done();
   });
 
-  it('eventsModel must exists', function () {
-    var result = eventsModel;
+  it('placesController must exists', function() {
+    var result = placesController;
     expect(result).to.be.an('object');
-    expect(result).to.include.keys(['mongo']);
+    expect(result).to.include.keys(['getPlaces','getPlace','postPlace','putPlace','deletePlace']);
   });
 
   describe('mongo', function() {
 
-    it('getEvents', function (done) {
-      eventsModel.mongo.getEvents(app.db, function (err, data) {
+    it('getPlaces', function(done) {
+      placesController.getPlaces(function(err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -56,8 +54,8 @@ describe('UNIT TEST events.model', function() {
     });
 
     for(key in data){
-      it('getEvent data '+key, function (done) {
-        eventsModel.mongo.getEvent(app.db, data[key], function (err, data) {
+      it('getPlace data '+key, function(done) {
+        placesController.getPlace(data[key], function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -66,11 +64,11 @@ describe('UNIT TEST events.model', function() {
     }
 
     for(key in data){
-      it('postEvent data '+key, function (done) {
-        client = {
+      it('postPlace data '+key, function(done) {
+        place = {
           id : data[key]
         };
-        eventsModel.mongo.postEvent(app.db, client, function (err, data) {
+        placesController.postPlace(place, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -79,11 +77,11 @@ describe('UNIT TEST events.model', function() {
     }
 
     for(key in data){
-      it('putEvent data '+key, function (done) {
-        client = {
+      it('putPlace data '+key, function(done) {
+        place = {
           id : data[key]
         };
-        eventsModel.mongo.putEvent(app.db, client, function (err, data) {
+        placesController.putPlace(place, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -92,11 +90,11 @@ describe('UNIT TEST events.model', function() {
     }
 
     for(key in data){
-      it('deleteEvent data '+key, function (done) {
-        client = {
+      it('deletePlace data '+key, function(done) {
+        place = {
           id : data[key]
         };
-        eventsModel.mongo.deleteEvent(app.db, client, function (err, data) {
+        placesController.deletePlace(place, function(err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();

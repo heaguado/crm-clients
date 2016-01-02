@@ -6,15 +6,14 @@ var supertest = require('supertest');
 
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
-var config = require('../../../config/env');
-var data = require('../data/events.data.test').data;
+var config = require('../../../config/env/index');
+var data = require('../../data/events.data.test').data;
 
-var db;
 var host    = 'http://localhost:8100';
 var server = supertest(host);
 var collection = 'EVENTS';
 
-describe('UNIT TEST events.routes', function() {
+describe('INTEGRATION TEST events.routes', function() {
 
   this.timeout(40000);
 

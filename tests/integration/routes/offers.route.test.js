@@ -6,14 +6,14 @@ var supertest = require('supertest');
 
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
-var config = require('../../../config/env');
-var data = require('../data/clients.data.test').data;
+var config = require('../../../config/env/index');
+var data = require('../../data/offers.data.test').data;
 
 var host    = 'http://localhost:8100';
 var server = supertest(host);
-var collection = 'CLIENTS';
+var collection = 'OFFERS';
 
-describe('UNIT TEST clients.routes', function() {
+describe('INTEGRATION TEST offers.routes', function() {
 
   this.timeout(40000);
 
@@ -39,9 +39,9 @@ describe('UNIT TEST clients.routes', function() {
   });
 
   for (var key in data) {
-    it('Put client ' + key, function (done) {
+    it('Put offer ' + key, function (done) {
       server
-        .put('/client')
+        .put('/offer')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
@@ -54,9 +54,9 @@ describe('UNIT TEST clients.routes', function() {
   }
 
   for (var key in data) {
-    it('Post client ' + key, function (done) {
+    it('Post offer ' + key, function (done) {
       server
-        .post('/client')
+        .post('/offer')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
@@ -68,23 +68,9 @@ describe('UNIT TEST clients.routes', function() {
     });
   }
 
-  for (var key in data) {
-    it('Get client ' + key, function (done) {
-      server
-        .get('/client/' + data[key]._id)
-        .expect("Content-type", /json/)
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          expect(res).to.be.string;
-          assert.equal(res.status, 200);
-          done();
-        });
-    });
-  }
-
-  it('Get clients', function (done) {
+  it('Get offers', function (done) {
     server
-      .get('/clients')
+      .get('/offers')
       .expect("Content-type", /json/)
       .end(function (err, res) {
         expect(err).to.be.null;
@@ -95,9 +81,23 @@ describe('UNIT TEST clients.routes', function() {
   });
 
   for (var key in data) {
-    it('Delete client ' + key, function (done) {
+    it('Get offer ' + key, function (done) {
       server
-        .delete('/client')
+        .get('/offer/' + data[key]._id)
+        .expect("Content-type", /json/)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.be.string;
+          assert.equal(res.status, 200);
+          done();
+        });
+    });
+  }
+
+  for (var key in data) {
+    it('Delete offer ' + key, function (done) {
+      server
+        .delete('/offer')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {

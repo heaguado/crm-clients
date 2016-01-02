@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha .\\tests --recursive",
-    "start": "node server.js"
+    "frontend": "gulp serve",
+    "backend": "node server.js"
   },
   "keywords": [
     "crm",

@@ -6,15 +6,14 @@ var supertest = require('supertest');
 
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
-var config = require('../../../config/env');
-var data = require('../data/offers.data.test').data;
+var config = require('../../../config/env/index');
+var data = require('../../data/places.data.test').data;
 
-var db;
 var host    = 'http://localhost:8100';
 var server = supertest(host);
-var collection = 'OFFERS';
+var collection = 'PLACES';
 
-describe('UNIT TEST offers.routes', function() {
+describe('INTEGRATION TEST places.routes', function() {
 
   this.timeout(40000);
 
@@ -40,9 +39,9 @@ describe('UNIT TEST offers.routes', function() {
   });
 
   for (var key in data) {
-    it('Put offer ' + key, function (done) {
+    it('Put place ' + key, function (done) {
       server
-        .put('/offer')
+        .put('/place')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
@@ -55,9 +54,9 @@ describe('UNIT TEST offers.routes', function() {
   }
 
   for (var key in data) {
-    it('Post offer ' + key, function (done) {
+    it('Post place ' + key, function (done) {
       server
-        .post('/offer')
+        .post('/place')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {
@@ -69,9 +68,9 @@ describe('UNIT TEST offers.routes', function() {
     });
   }
 
-  it('Get offers', function (done) {
+  it('Get places', function (done) {
     server
-      .get('/offers')
+      .get('/places')
       .expect("Content-type", /json/)
       .end(function (err, res) {
         expect(err).to.be.null;
@@ -82,9 +81,9 @@ describe('UNIT TEST offers.routes', function() {
   });
 
   for (var key in data) {
-    it('Get offer ' + key, function (done) {
+    it('Get place ' + key, function (done) {
       server
-        .get('/offer/' + data[key]._id)
+        .get('/place/' + data[key]._id)
         .expect("Content-type", /json/)
         .end(function (err, res) {
           expect(err).to.be.null;
@@ -96,9 +95,9 @@ describe('UNIT TEST offers.routes', function() {
   }
 
   for (var key in data) {
-    it('Delete offer ' + key, function (done) {
+    it('Delete place ' + key, function (done) {
       server
-        .delete('/offer')
+        .delete('/place')
         .send(data[key])
         .expect("Content-type", /json/)
         .end(function (err, res) {

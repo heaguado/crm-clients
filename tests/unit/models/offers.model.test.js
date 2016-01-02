@@ -1,26 +1,24 @@
 'use strict';
 
 var expect = require('chai').expect;
-var assert = require('chai').assert;
 
 var app     = require('../../../lib/app');
 var mongo = require('../../../lib/modules/mongo');
 var config = require('../../../config/env');
-var data = require('../data/places.data.test').data;
+var data = require('../../data/offers.data.test').data;
 
-var placesModel;
-var db;
+var offersModel;
 var key;
 var client;
-var collection = 'PLACES';
+var collection = 'OFFERS';
 
-describe('UNIT TEST places.model', function() {
+describe('UNIT TEST offers.model', function() {
 
   this.timeout(40000);
 
   before(function(done) {
     app.start(config.server.port);
-    placesModel = require("../../../lib/models/places.model");
+    offersModel = require("../../../lib/models/offers.model");
     mongo.connect(config, function (err, db) {
       if (err) {
         console.log('ERROR initializing MongoDB: ' + err);
@@ -39,16 +37,16 @@ describe('UNIT TEST places.model', function() {
     done();
   });
 
-  it('placesModel must exists', function () {
-    var result = placesModel;
+  it('offersModel must exists', function () {
+    var result = offersModel;
     expect(result).to.be.an('object');
     expect(result).to.include.keys(['mongo']);
   });
 
   describe('mongo', function() {
 
-    it('getPlaces', function (done) {
-      placesModel.mongo.getPlaces(app.db, function (err, data) {
+    it('getOffers', function (done) {
+      offersModel.mongo.getOffers(app.db, function (err, data) {
         expect(err).to.be.null;
         expect(data).to.be.string;
         done();
@@ -56,8 +54,8 @@ describe('UNIT TEST places.model', function() {
     });
 
     for(key in data){
-      it('getPlace data '+key, function (done) {
-        placesModel.mongo.getPlace(app.db, data[key], function (err, data) {
+      it('getOffer data '+key, function (done) {
+        offersModel.mongo.getOffer(app.db, data[key], function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -66,11 +64,11 @@ describe('UNIT TEST places.model', function() {
     }
 
     for(key in data){
-      it('postPlace data '+key, function (done) {
+      it('postOffer data '+key, function (done) {
         client = {
           id : data[key]
         };
-        placesModel.mongo.postPlace(app.db, client, function (err, data) {
+        offersModel.mongo.postOffer(app.db, client, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -79,11 +77,11 @@ describe('UNIT TEST places.model', function() {
     }
 
     for(key in data){
-      it('putPlace data '+key, function (done) {
+      it('putOffer data '+key, function (done) {
         client = {
           id : data[key]
         };
-        placesModel.mongo.putPlace(app.db, client, function (err, data) {
+        offersModel.mongo.putOffer(app.db, client, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
@@ -92,11 +90,11 @@ describe('UNIT TEST places.model', function() {
     }
 
     for(key in data){
-      it('deletePlace data '+key, function (done) {
+      it('deleteOffer data '+key, function (done) {
         client = {
           id : data[key]
         };
-        placesModel.mongo.deletePlace(app.db, client, function (err, data) {
+        offersModel.mongo.deleteOffer(app.db, client, function (err, data) {
           expect(err).to.be.null;
           expect(data).to.be.string;
           done();
